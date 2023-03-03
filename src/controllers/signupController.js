@@ -17,7 +17,7 @@ const singupController = async (req, res) => {
         // SEND RESPONSE
         res.status(201).json({
             message: "User created successfully",
-            data: user
+            data: user.email
         });
 
         console.log(user)
