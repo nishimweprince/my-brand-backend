@@ -46,9 +46,14 @@ const loginController = async (req, res) => {
         // SEND RESPONSE
         res.status(200).json({
             message: "User logged in successfully",
-            token: token
+            token: token,
         });
+
+        let cookie = res.getHeaders()["set-cookie"].split(";")[0].split("=")[1];
+        console.log(cookie);
+
       }
+
     }
   } catch (error) {
     const message = error.message;
