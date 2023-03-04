@@ -27,6 +27,7 @@ app.get("/", (req, res) => {
     });
 });
 
+
 // ALL ROUTES
 app.use("/api/", router)
 
