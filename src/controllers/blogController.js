@@ -141,6 +141,65 @@ class blogController {
       errorFunc(res, messageContent, status);
     }
   }
+
+  // COMMENT ON BLOG
+  static async commentOnBlog(req, res) {
+
+    try {
+      // Catch blog id from the request params
+      const { id } = req.params;
+
+      // Catch comment attributes from the request body
+      const { name, comment } = req.body;
+      const createdAt = Date.now();
+
+      // Find the blog with the id and push the comment attributes to the comments array
+      const blog = await Blog.findById(id);
+      blog.comments.push({ name, comment, createdAt });
+
+      // Save the blog
+      await blog.save();
+
+      // Send a response
+      res.status(201).json({
+        message: "Comment added successfully",
+      });
+
+      // Catch any errors
+    } catch (error) {
+      const messageContent = error.message;
+      const status = 500;
+      errorFunc(res, messageContent, status);
+    }
+
+  }
+
+  // LIKE BLOG
+  static async likeBlog(req, res) {
+    try {
+      // Catch blog id from the request params
+      const { id } = req.params;
+
+      // Find the blog with the id and increment the likes by 1
+      const blog = await Blog.findById(id);
+      blog.likes += 1;
+
+      // Save the blog
+      await blog.save();
+
+      // Send a response
+      res.status(201).json({
+        message: "Blog liked successfully",
+      });
+
+      // Catch any errors
+    } catch (error) {
+      const messageContent = error.message;
+      const status = 500;
+      errorFunc(res, messageContent, status);
+    }
+  }
+
 }
 
 export default blogController;
