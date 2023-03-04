@@ -5,6 +5,8 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import morgan from "morgan";
 import router from "./routes/allRoutes.js";
+import passport from "passport";
+import passportLogin from "./strategies/passport-jwt.js";
 
 
 // CONFIGURE DOTENV
@@ -18,6 +20,9 @@ const app = express();
 // USE AN APP INSTANCE
 app.use(cors());
 app.use(bodyParser.json());
+
+// PASSPORT MIDDLEWARE
+app.use(passport.initialize());
 
 
 // HOME ROUTE
