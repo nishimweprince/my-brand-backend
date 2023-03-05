@@ -1,5 +1,6 @@
 import express from "express";
 import blogController from "../controllers/blogController.js";
+import protectBlogs from "../middlewares/protectBlogs.js";
 
 const router = express.Router();
 
@@ -7,16 +8,16 @@ const router = express.Router();
 router.get("/", blogController.getBlogs);
 
 // CREATE BLOG
-router.post("/", blogController.createBlog);
+router.post("/", protectBlogs, blogController.createBlog);
 
 // GET SINGLE BLOG
 router.get("/:id", blogController.getSingleBlog);
 
 // UPDATE BLOG
-router.put("/:id", blogController.updateBlog);
+router.put("/:id", protectBlogs, blogController.updateBlog);
 
 // DELETE BLOG
-router.delete("/:id", blogController.deleteBlog);
+router.delete("/:id", protectBlogs, blogController.deleteBlog);
 
 // COMMENT ON BLOG
 router.post("/:id/comment", blogController.commentOnBlog);
