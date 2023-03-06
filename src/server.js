@@ -37,7 +37,7 @@ mongoose.set("strictQuery", false);
 
 
 // MORGAN FOR LOGS
-if (process.env.NODE_ENV === "development") app.use(morgan());
+if (process.env.NODE_ENV === "development") app.use(morgan('combined'));
 
 
 // DEFINING PORT AND HOST

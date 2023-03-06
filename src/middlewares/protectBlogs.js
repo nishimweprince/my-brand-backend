@@ -14,19 +14,24 @@ const protectBlogs = async (req, res, next) => {
 
     // Verify the token
     try {
+
         const { id } = jwt.verify(token, process.env.USER_SECRET);
 
         // Find the user using the id
         const user = await User.findOne({ _id: id });
         
         // Check if the user exists
-        if (user) {
+        if (user.role == "admin") {
             next();
+            return res.status(200).json({
+                data: user
+            });
         }
 
         else {
             return res.status(401).json({
-                message: "You are not authorized to delete this blog"
+                message: "Unauthorized",
+                data: user
             });
         }
 
