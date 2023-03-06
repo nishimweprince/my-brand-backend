@@ -1,5 +1,6 @@
 import Blog from "../models/blog.js";
 import errorFunc from "../utils/errors.js";
+import checkDuplication from "../utils/duplication.js";
 
 class blogController {
   // GET ALL BLOGS
@@ -33,7 +34,17 @@ class blogController {
         image,
       } = req.body;
 
-      // Create a new blog
+      // Check if the blog already exists
+      const blogExists = await checkDuplication(Blog, { body });
+
+      if (blogExists) {
+        return res.status(409).json({
+          message: "Blog already exists",
+        });
+      }
+
+      else {
+        // Create a new blog
       const blog = await Blog.create({
         title,
         body,
@@ -44,6 +55,7 @@ class blogController {
         image,
         createdAt: Date.now(),
       });
+      }
 
       // Send a response
       res.status(201).json({

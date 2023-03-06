@@ -38,7 +38,7 @@ const loginController = async (req, res) => {
         const token = jwt.sign({ id: user._id }, secret, {expiresIn: "1w"});
 
         // SET COOKIE
-        res.cookie("token", token, {
+        res.cookie("Authorized", token, {
             httpOnly: true,
             maxAge: 1000 * 60 * 60 * 24 * 7, // 1 week
         });
@@ -48,9 +48,6 @@ const loginController = async (req, res) => {
             message: "User logged in successfully",
             token: token,
         });
-
-        let cookie = res.getHeaders()["set-cookie"].split(";")[0].split("=")[1];
-        console.log(cookie);
 
       }
 

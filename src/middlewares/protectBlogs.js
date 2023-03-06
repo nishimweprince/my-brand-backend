@@ -23,15 +23,11 @@ const protectBlogs = async (req, res, next) => {
         // Check if the user exists
         if (user.role === "admin") {
             next();
-            return res.status(200).json({
-                data: user
-            });
         }
 
         else {
             return res.status(401).json({
                 message: "Unauthorized",
-                data: user
             });
         }
 
