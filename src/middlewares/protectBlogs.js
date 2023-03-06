@@ -21,7 +21,7 @@ const protectBlogs = async (req, res, next) => {
         const user = await User.findOne({ _id: id });
         
         // Check if the user exists
-        if (user.role == "admin") {
+        if (user.role === "admin") {
             next();
             return res.status(200).json({
                 data: user

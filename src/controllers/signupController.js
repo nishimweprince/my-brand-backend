@@ -4,7 +4,7 @@ import errorFunc from '../utils/errors.js';
 
 const singupController = async (req, res) => {
 
-    const { username, email, password } = req.body;
+    const { username, email, password, role } = req.body;
 
     try {
 
@@ -12,7 +12,7 @@ const singupController = async (req, res) => {
         const hashedPassword = await bcrypt.hash(password, 10);
 
         // CREATE A NEW USER
-        const user = await User.create({username, email, password: hashedPassword});
+        const user = await User.create({username, email, password: hashedPassword, role});
 
         // SEND RESPONSE
         res.status(201).json({
