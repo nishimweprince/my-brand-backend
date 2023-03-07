@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
-import getCookie from "../utils/authCookie.js";
+import getCookie from "../utils/cookies.js";
 import User from "../models/user.js";
 import errorFunc from "../utils/errors.js";
 
