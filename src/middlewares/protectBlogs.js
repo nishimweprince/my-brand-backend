@@ -10,7 +10,7 @@ dotenv.config();
 const protectBlogs = async (req, res, next) => {
 
     // Get the token from the request
-    const token = getCookie(req);
+    const token = req.headers.credentials;
 
     // Verify the token
     try {

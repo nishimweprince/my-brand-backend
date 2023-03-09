@@ -19,6 +19,8 @@ const loginController = async (req, res) => {
     // FIND USER BY EMAIL
     const user = await User.findOne({ email });
 
+    console.log(req.body);
+
     // CHECK IF USER EXISTS
     if (!user) {
       return res.status(404).json({
@@ -33,7 +35,13 @@ const loginController = async (req, res) => {
         return res.status(404).json({
           message: "Invalid credentials",
         });
-      } else {
+      } 
+      
+      /*
+      USER AUTHENTICATION
+      */
+
+      else {
         // CREATE AND SIGN A TOKEN
         const token = jwt.sign({ id: user._id }, secret, {expiresIn: "1w"});
 
@@ -43,10 +51,13 @@ const loginController = async (req, res) => {
             maxAge: 1000 * 60 * 60 * 24 * 7, // 1 week
         });
 
+        const expiresIn = Date.now() + 1000 * 60 * 60 * 24 * 7;
+
         // SEND RESPONSE
         res.status(200).json({
             message: "User logged in successfully",
             token: token,
+            expiresIn: new Date(expiresIn)
         });
 
       }
