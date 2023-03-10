@@ -100,6 +100,7 @@ class blogController {
       // Catch blog attributes from the request body
       const { title, body } = req.body;
 
+
       // Find the blog with the id and update it with blog attributes from the request body
       const updatedBlog = await Blog.findByIdAndUpdate(
         id,
@@ -160,12 +161,13 @@ class blogController {
       const { id } = req.params;
 
       // Catch comment attributes from the request body
-      const { name, comment } = req.body;
-      const createdAt = Date.now();
+      const { name, email, body } = req.body;
+
+      console.log(req.body);
 
       // Find the blog with the id and push the comment attributes to the comments array
       const blog = await Blog.findById(id);
-      blog.comments.push({ name, comment, createdAt });
+      blog.comments.push({ name, email, body, createdAt: Date.now() });
 
       // Save the blog
       await blog.save();
@@ -200,6 +202,7 @@ class blogController {
       // Send a response
       res.status(201).json({
         message: "Blog liked successfully",
+        data: blog
       });
 
       // Catch any errors

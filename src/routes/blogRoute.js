@@ -20,9 +20,9 @@ router.put("/:id", protectBlogs, blogController.updateBlog);
 router.delete("/:id", protectBlogs, blogController.deleteBlog);
 
 // COMMENT ON BLOG
-router.post("/:id/comment", blogController.commentOnBlog);
+router.put("/:id/comment", blogController.commentOnBlog);
 
 // LIKE BLOG
-router.post("/:id/like", blogController.likeBlog);
+router.put("/:id/like", blogController.likeBlog);
 
 export default router;
