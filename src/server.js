@@ -17,7 +17,7 @@ const app = express();
 
 // USE AN APP INSTANCE
 app.use(cors());
-app.use(bodyParser.json());
+app.use(bodyParser.json({limit: '50mb', type: 'application/json'}));
 
 
 // HOME ROUTE
