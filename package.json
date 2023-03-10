@@ -30,12 +30,12 @@
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "jsonwebtoken": "^9.0.0",
-    "mongoose": "^7.0.0"
+    "mongoose": "^7.0.0",
+    "morgan": "^1.10.0"
   },
   "devDependencies": {
     "@babel/core": "^7.21.0",
     "@babel/node": "^7.20.7",
-    "@babel/preset-env": "^7.20.2",
-    "morgan": "^1.10.0"
+    "@babel/preset-env": "^7.20.2"
   }
 }
