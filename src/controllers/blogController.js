@@ -1,5 +1,14 @@
 import Blog from "../models/blog.js";
 import errorFunc from "../utils/errors.js";
+import cloudinary from "cloudinary";
+import formidable from "formidable";
+
+// Configuration
+cloudinary.config({
+  cloud_name: "nishimweprince",
+  api_key: "256962269811487",
+  api_secret: "fYkCb0fZP_exNObdEzBRsrFppEg",
+});
 
 class blogController {
   // GET ALL BLOGS
@@ -33,33 +42,48 @@ class blogController {
         image,
       } = req.body;
 
+      // UPLOAD IMAGE TO CLOUDINARY
+
+      // UPLOAD OPTIONS
+      const options = {
+        folder: "atlp-mybrand",
+        public_id: "my_image",
+        use_filename: true,
+        unique_filename: false,
+      };
+
+      const result = await cloudinary.uploader.upload(image, options);
+      const imageURL = result.url;
+
+      // LOGGING REQUEST BODY
+      console.log(req.body);
+
       // Check if the blog already exists
       const blogExists = await Blog.findOne({ body });
 
       if (blogExists) {
         return res.status(409).json({
-          message: "Blog already exists"
+          message: "Blog already exists",
+        });
+      } else {
+        // Create a new blog
+        const blog = await Blog.create({
+          title,
+          body,
+          author_name,
+          author_twitter,
+          author_linkedin,
+          author_github,
+          image: imageURL,
+          createdAt: Date.now(),
+        });
+
+        // Send a response
+        res.status(201).json({
+          message: "Blog created successfully",
+          data: blog,
         });
       }
-
-      else {
-        // Create a new blog
-      const blog = await Blog.create({
-        title,
-        body,
-        author_name,
-        author_twitter,
-        author_linkedin,
-        author_github,
-        image,
-        createdAt: Date.now(),
-      });
-      }
-
-      // Send a response
-      res.status(201).json({
-        message: "Blog created successfully",
-      });
 
       // Catch any errors
     } catch (error) {
@@ -99,7 +123,6 @@ class blogController {
 
       // Catch blog attributes from the request body
       const { title, body } = req.body;
-
 
       // Find the blog with the id and update it with blog attributes from the request body
       const updatedBlog = await Blog.findByIdAndUpdate(
@@ -155,7 +178,6 @@ class blogController {
 
   // COMMENT ON BLOG
   static async commentOnBlog(req, res) {
-
     try {
       // Catch blog id from the request params
       const { id } = req.params;
@@ -183,7 +205,6 @@ class blogController {
       const status = 500;
       errorFunc(res, messageContent, status);
     }
-
   }
 
   // LIKE BLOG
@@ -202,7 +223,7 @@ class blogController {
       // Send a response
       res.status(201).json({
         message: "Blog liked successfully",
-        data: blog
+        data: blog,
       });
 
       // Catch any errors
@@ -212,7 +233,6 @@ class blogController {
       errorFunc(res, messageContent, status);
     }
   }
-
 }
 
 export default blogController;
