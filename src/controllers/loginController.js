@@ -57,7 +57,8 @@ const loginController = async (req, res) => {
         res.status(200).json({
             message: "User logged in successfully",
             token: token,
-            expiresIn: new Date(expiresIn)
+            expiresIn: new Date(expiresIn),
+            data: user
         });
 
       }
