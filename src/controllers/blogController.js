@@ -47,12 +47,12 @@ class blogController {
       // UPLOAD OPTIONS
       const options = {
         folder: "atlp-mybrand",
-        public_id: "my_image",
+        public_id: `${title}`,
         use_filename: true,
         unique_filename: false,
       };
 
-      const result = await cloudinary.uploader.upload(image, options);
+      const result = await cloudinary.v2.uploader.upload(image, options);
       const imageURL = result.url;
 
       // LOGGING REQUEST BODY
