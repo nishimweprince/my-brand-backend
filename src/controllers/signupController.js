@@ -6,7 +6,6 @@ const singupController = async (req, res) => {
   const { username, email, password } = req.body;
 
   try {
-
     // VALIDATE PASSWORD
 
     if (password.length < 6) {
@@ -26,49 +25,47 @@ const singupController = async (req, res) => {
 
     // CHECK IF THERE ARE USERS
     if (users.length === 0) {
-        
-    if (userExists) {
+      if (userExists) {
+        return res.status(400).json({
+          message: "User already exists",
+        });
+      } else {
+        // CREATE A NEW USER
+        const user = await User.create({
+          username,
+          email,
+          password: hashedPassword,
+          role: "admin",
+        });
 
-    return res.status(400).json({
-        message: "User already exists",
-    });
-
+        // SEND RESPONSE
+        res.status(201).json({
+          message: "User created successfully",
+          data: user
+        });
+      }
     } else {
+      // CHECK IF USER EXISTS
+      if (userExists) {
+        return res.status(400).json({
+          message: "User already exists",
+        });
+      } else {
         // CREATE A NEW USER
         const user = await User.create({
-            username,
-            email,
-            password: hashedPassword,
-            role: "admin",
+          username,
+          email,
+          password: hashedPassword,
+          role: "user",
         });
-    }
-    }
 
-    else {
-
-        // CHECK IF USER EXISTS
-        if (userExists) {
-            return res.status(400).json({
-                message: "User already exists"
-            });
-        }
-
-        else {
-        // CREATE A NEW USER
-        const user = await User.create({
-            username,
-            email,
-            password: hashedPassword,
-            role: "user",
+        // SEND RESPONSE
+        res.status(201).json({
+          message: "User created successfully",
+          data: user
         });
+      }
     }
-    }
-
-    // SEND RESPONSE
-    res.status(201).json({
-      message: "User created successfully",
-    });
-
   } catch (error) {
     const message = error.message;
     const status = 500;
