@@ -122,12 +122,12 @@ class blogController {
       const { id } = req.params;
 
       // Catch blog attributes from the request body
-      const { title, body } = req.body;
+      const { title, body, author_name } = req.body;
 
       // Find the blog with the id and update it with blog attributes from the request body
       const updatedBlog = await Blog.findByIdAndUpdate(
         id,
-        { title, body },
+        { title, body, author_name },
         { new: true }
       );
 
