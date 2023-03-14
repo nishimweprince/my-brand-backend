@@ -4,6 +4,7 @@ import signupRoute from "./signupRoute.js"
 import loginRoute from "./loginRoute.js"
 import messagesRoute from "./messagesRoute.js"
 import subscribersRoute from "./subscribersRoute.js"
+import swaggerRoute from "./swaggerRoute.js"
 
 const router = express.Router()
 
@@ -24,5 +25,8 @@ router.use("/messages", messagesRoute)
 
 // SUBSCRIBER ROUTE
 router.use("/newsletter", subscribersRoute)
+
+// SWAGGER ROUTE
+router.use("/docs", swaggerRoute)
 
 export default router
