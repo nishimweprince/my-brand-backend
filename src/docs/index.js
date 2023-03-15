@@ -1,6 +1,7 @@
 import swaggerUI from "swagger-ui-express";
 import swaggerJsDoc from "swagger-jsdoc";
 import { tags } from "./tags.js";
+import { components } from "./components.js";
 
 const options = {
   definition: {
@@ -26,6 +27,7 @@ const options = {
         }
       ],
       tags, // Tags imported from src/docs/tags.js
+      components, // Components imported from src/docs/components.js
   },
   apis: ["../routes/*.js", "../docs/*.js"], // Path to the API docs
 
