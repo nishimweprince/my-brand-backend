@@ -1,10 +1,16 @@
 
 const tags = [
     {
-        name: 'BLOG CRUD OPERATIONS', // Section for blog CRUD operations
+        name: 'Blog', // Section for blog CRUD operations
     },
     {
-        name: 'AUTHENTICATION', // Section for authentication
+        name: 'User', // Section for authentication
+    },
+    {
+        name: 'Message', // Section for messages submitted by visitors
+    },
+    {
+        name: 'Newsletter', // Section for users who want to subscribe to the newsletter
     }
 ]
 

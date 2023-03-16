@@ -1,7 +1,7 @@
-import swaggerUI from "swagger-ui-express";
-import swaggerJsDoc from "swagger-jsdoc";
+import servers from "./servers.js";
 import { tags } from "./tags.js";
 import { components } from "./components.js";
+import paths from "./paths.js";
 
 const options = {
   definition: {
@@ -16,21 +16,11 @@ const options = {
         url: "https://atlp-my-brand-nishimwe.web.app/", // Website of the author
       },
     },
-    servers: [ // Server URLs
-        {
-          url: "http://localhost:4000/api", // Localhost for development environment
-          description: "DEV"
-        },
-        {
-            url: process.env.HOST, // Production server hosted on Cyclic
-            description: "PROD"
-        }
-      ],
+      servers, // Servers imported from src/docs/servers.js
       tags, // Tags imported from src/docs/tags.js
-      components, // Components imported from src/docs/components.js
+      components, // Components imported from src/docs/components.js,
+      paths, // Paths imported from src/docs/paths.js
   },
-  apis: ["../routes/*.js", "../docs/*.js"], // Path to the API docs
-
+  apis: ["../routes/*.js", "../docs/**/*.js"], // Path to the API docs
 };
-
 export { options };

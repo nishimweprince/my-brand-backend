@@ -110,8 +110,15 @@ class blogController {
       // Catch any errors
     } catch (error) {
       const messageContent = error.message;
-      const status = 500;
-      errorFunc(res, messageContent, status);
+      const serverError = 500;
+      const notFound = 404;
+      console.log(error);
+      if (error.code == 500) {
+        errorFunc(res, messageContent, serverError);
+      }
+      if (error.code == 404) { 
+        errorFunc(res, messageContent, notFound);
+      }
     }
   }
 
