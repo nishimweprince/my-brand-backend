@@ -1,11 +1,29 @@
 const components = {
   schemas: {
-    // ID
+    /**
+     *
+     * ID
+     *
+     */
+
     _id: {
       type: "string",
       description:
         "For BLOG: Used to DELETE, UPDATE, and READ a single blog. For THE REST: Used as a unique identifier of the modal -- Automatically assigned by MongoDB",
       example: "640f6ed7d8f101c16399e15c",
+    },
+
+    /**
+     *
+     * AUTHORIZATION TOKEN
+     *
+     */
+
+    credentials: {
+      type: "string", // Data type of the token
+      description: "JWT Authorization token captured after successful login", // Description
+      example:
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MGY0Y2VkMDRjZDgzYzRmOTUzYTYzOSIsImlhdCI6MTY3ODk1MDU4MCwiZXhwIjoxNjc5NTU1MzgwfQ.wPg7uZSA_X6zyDCnPslOFgXF_dAejxGL2Khnum193oU", // Example of the auth token
     },
 
     /**

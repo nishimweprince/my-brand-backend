@@ -20,7 +20,14 @@ const update = {
       required: true, // Parameter is required
       description: "ID of the blog to be updated",
     },
-  ],
+  {
+      name: "credentials", // Parameter name
+      in: "header", // Parameter location
+      schema: {
+          $ref: "#/components/schemas/credentials", // Credentials model
+      },
+  }
+],
 
   // Expected responses
   responses: {

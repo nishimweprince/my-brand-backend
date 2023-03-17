@@ -21,6 +21,14 @@ parameters: [
         },
         required: true, // Parameter is required
         description: "ID of the blog to be deleted",
+    },
+
+    {
+        name: "credentials", // Parameter name
+        in: "header", // Parameter location
+        schema: {
+            $ref: "#/components/schemas/credentials", // Credentials model
+        },
     }
 ],
 

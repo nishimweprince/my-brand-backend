@@ -51,7 +51,9 @@ const createMessage = {
 
                 // Response content type
                 "application/json": {
-                    schema: {}, // Empty schema
+                    schema: {
+                        message: "Invalid message",
+                    }, // Empty schema
                 },
             },
         },
@@ -63,7 +65,9 @@ const createMessage = {
 
                 // Response content type
                 "application/json": {
-                    schema: {}, // Empty schema
+                    schema: {
+                        message: "Server error",
+                    }, // Empty schema
                 },
             },
         },
