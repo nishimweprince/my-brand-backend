@@ -28,6 +28,7 @@ class messagesController {
         } catch (error) {
           const message = error.message;
           const status = 500;
+          console.log(error)
           errorFunc(res, message, status);
         }
       };

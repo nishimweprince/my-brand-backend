@@ -1,6 +1,7 @@
 const errorFunc = (res, message, status, data) => {
     return res.status(status).json({
-        message: message,
+        deliver: message,
+        status: status,
         data: data
     });
 };

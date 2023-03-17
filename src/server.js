@@ -69,3 +69,5 @@ Promise.all([con(), server])
 .catch((err) => {
     console.log(err);
 });
+
+export default app;
