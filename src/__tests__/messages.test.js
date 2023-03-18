@@ -1,11 +1,16 @@
 import supertest from "supertest";
 import mongoose from "mongoose";
-import app from "../server.js";
-import { messageRequest } from "../utils/dummy.js";
+import { app } from "../utils/dev.js";
+import { messageRequest } from "../utils/dummytest.js";
+import dotenv from "dotenv";
+
+// CONFIGURE DOTENV
+dotenv.config();
 
 // CONNECTING TO THE DATABASE BEFORE EACH TEST
 beforeEach(async () => {
-  await mongoose.connect(process.env.MONGODB_URL)});
+  await mongoose.connect(process.env.MONGODB_URL_TEST)
+});
 
 // CLOSING THE DATABASE CONNECTION AFTER EACH TEST
 afterEach(async () => {

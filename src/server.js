@@ -1,26 +1,13 @@
-import express from "express";
-import cors from "cors";
-import bodyParser from "body-parser";
-import mongoose from "mongoose";
 import dotenv from "dotenv";
 import morgan from "morgan";
-import router from "./routes/allRoutes.js";
-import swaggerUI from "swagger-ui-express";
-import swaggerJsDoc from "swagger-jsdoc";
+import { createServer, con } from "./utils/app.js";
 
 
 // CONFIGURE DOTENV
 dotenv.config();
 
-
-
 // CREATE AN APP INSTANCE FROM EXPRESS FRAMEWORK
-const app = express();
-
-// USE AN APP INSTANCE
-app.use(cors());
-app.use(bodyParser.json({limit: '50mb', type: 'application/json'}));
-
+const app = createServer();
 
 // HOME ROUTE
 app.get("/", (req, res) => {
@@ -28,14 +15,6 @@ app.get("/", (req, res) => {
         message: "You have reached NISHIMWE's API"
     });
 });
-
-
-// ALL ROUTES
-app.use("/api/", router)
-
-
-// MONGOOSE STRICT QUERY
-mongoose.set("strictQuery", false);
 
 
 // MORGAN FOR LOGS
@@ -47,15 +26,6 @@ const port = process.env.PORT || 4000;
 const host = process.env.HOST || "localhost";
 
 
-// CONNECT TO MONGODB
-const con = () => mongoose.connect(process.env.MONGODB_URL, {
-
-    useNewurlparser: true,
-    useUnifiedTopology: true
-
-});
-
-
 // LISTENING TO SERVER INSTANCE
 const server = app.listen(port);
 
@@ -63,11 +33,9 @@ const server = app.listen(port);
 // PROMISE TO AWAIT FOR SERVER AND MONGODB CONNECTION
 Promise.all([con(), server])
 .then(() => {
-    console.log(`MongoDB connected...`);
+    console.log(`MongoDB connected... at ${process.env.MONGODB_URL_TEST}`);
     console.log(`Server running at http://${host}:${port}`);
 })
 .catch((err) => {
     console.log(err);
 });
-
-export default app;
