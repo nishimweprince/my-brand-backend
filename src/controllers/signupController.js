@@ -26,7 +26,7 @@ const singupController = async (req, res) => {
     // CHECK IF THERE ARE USERS
     if (users.length === 0) {
       if (userExists) {
-        return res.status(400).json({
+        return res.status(409).json({
           message: "User already exists",
         });
       } else {
@@ -47,7 +47,7 @@ const singupController = async (req, res) => {
     } else {
       // CHECK IF USER EXISTS
       if (userExists) {
-        return res.status(400).json({
+        return res.status(409).json({
           message: "User already exists",
         });
       } else {

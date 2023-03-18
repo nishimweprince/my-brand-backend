@@ -1,7 +1,6 @@
 import Blog from "../models/blog.js";
 import errorFunc from "../utils/errors.js";
 import cloudinary from "cloudinary";
-import formidable from "formidable";
 
 // Configuration
 cloudinary.config({
@@ -102,6 +101,13 @@ class blogController {
       // Find the blog with the id
       const blog = await Blog.findById({ _id: id });
 
+      // Check existence of the blog and send a response
+      if (!blog) {
+        return res.status(404).json({
+          message: "Blog not found",
+        });
+      }
+
       // Send a response
       res.status(200).json({
         data: blog,
@@ -110,15 +116,8 @@ class blogController {
       // Catch any errors
     } catch (error) {
       const messageContent = error.message;
-      const serverError = 500;
-      const notFound = 404;
-      console.log(error);
-      if (error.code == 500) {
-        errorFunc(res, messageContent, serverError);
-      }
-      if (error.code == 404) { 
-        errorFunc(res, messageContent, notFound);
-      }
+      const status = 500;
+      errorFunc(res, messageContent, status);
     }
   }
 
@@ -127,6 +126,15 @@ class blogController {
     try {
       // Catch blog id from the request params
       const { id } = req.params;
+
+      // Check blog existence and throw error if it does not exist
+      const blogExists = await Blog.findById(id);
+
+      if (!blogExists) {
+        return res.status(404).json({
+          message: "The blog you are trying to update does not exist",
+        });
+      }
 
       // Catch blog attributes from the request body
       const { title, body, author_name } = req.body;
@@ -138,16 +146,10 @@ class blogController {
         { new: true }
       );
 
-      // Check existence of the blog and send a response
-      if (!updatedBlog) {
-        return res.status(404).json({
-          message: "The blog you are trying to update does not exist",
-        });
-      } else {
-        return res.status(200).json({
-          message: "Blog updated successfully",
-        });
-      }
+      return res.status(201).json({
+        message: "Blog updated successfully",
+        data: updatedBlog,
+      });
     } catch (error) {
       // Catch any errors
       const messageContent = error.message;

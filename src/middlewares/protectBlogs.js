@@ -37,6 +37,7 @@ const protectBlogs = async (req, res, next) => {
     catch (error) {
         const message = error.message;
         const status = 500;
+        console.log(error)
         errorFunc(res, message, status);
     }
 
